@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - METADEV Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-align: center;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .banner-text {
+            letter-spacing: 0.1em;
+        }
+
+        .banner-cta {
+            background: #ff4500;
+            padding: 0.4rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            animation: pulse-cta 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-cta {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .lang-switch {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--light);
+        }
+
+        .lang-switch:hover {
+            background: var(--primary);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+        }
+
+        .page-hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-hero p {
+            font-size: 1.5rem;
+            color: rgba(248, 250, 252, 0.8);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .info-content p {
+            color: rgba(248, 250, 252, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Form Section */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid #22c55e;
+            border-radius: 12px;
+            margin-top: 2rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            color: #22c55e;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: rgba(248, 250, 252, 0.8);
+        }
+
+        .error-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            margin-top: 2rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .error-message h3 {
+            color: #ef4444;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message p {
+            color: rgba(248, 250, 252, 0.8);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 3rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: rgba(248, 250, 252, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(248, 250, 252, 0.6);
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(248, 250, 252, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(248, 250, 252, 0.5);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            display: block;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .mobile-close-btn {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--primary);
+            padding-left: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .top-banner {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .page-hero {
+                padding: 4rem 1.5rem 2rem;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .page-hero p {
+                font-size: 1.1rem;
+            }
+
+            .contact-section {
+                padding: 3rem 1rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-section {
+                padding: 3rem 1rem;
+            }
+
+            .faq-title {
+                font-size: 2rem;
+            }
+
+            .faq-item {
+                padding: 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            footer {
+                padding: 2rem 1rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .submit-btn {
+                font-size: 1rem;
+                padding: 1.2rem;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <span class="banner-text" data-fr="OFFRE LIMITÉE - PROMO HIVER" data-en="LIMITED OFFER - WINTER SALE">OFFRE LIMITÉE - PROMO HIVER</span>
+        <span class="banner-cta" data-fr="Économisez 30%" data-en="Save 30%">Économisez 30%</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">METADEV</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="index.html#services" data-fr="Services" data-en="Services">Services</a></li>
+                <li><a href="index.html#examples" data-fr="Exemples" data-en="Examples">Exemples</a></li>
+                <li><a href="about.html" data-fr="À Propos" data-en="About Us">À Propos</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="lang-switch" onclick="toggleLanguage()"><span id="lang-text">EN</span></button></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo">METADEV</a>
+            <button class="mobile-close-btn" onclick="toggleMobileMenu()">✕</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" data-fr="Accueil" data-en="Home" onclick="toggleMobileMenu()">Accueil</a></li>
+            <li><a href="index.html#services" data-fr="Services" data-en="Services" onclick="toggleMobileMenu()">Services</a></li>
+            <li><a href="index.html#examples" data-fr="Exemples" data-en="Examples" onclick="toggleMobileMenu()">Exemples</a></li>
+            <li><a href="about.html" data-fr="À Propos" data-en="About Us" onclick="toggleMobileMenu()">À Propos</a></li>
+            <li><a href="contact.html" data-fr="Contact" data-en="Contact" onclick="toggleMobileMenu()">Contact</a></li>
+            <li><button class="lang-switch" onclick="toggleLanguage()" style="width: 100%; margin-top: 1rem;"><span id="lang-text-mobile">EN</span></button></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <h1 data-fr="Contactez-nous" data-en="Contact Us">Contactez-nous</h1>
+        <p data-fr="Parlons de votre projet. Nous sommes là pour répondre à toutes vos questions." data-en="Let's talk about your project. We're here to answer all your questions.">
+            Parlons de votre projet. Nous sommes là pour répondre à toutes vos questions.
+        </p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-grid">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h3 data-fr="Entrons en contact" data-en="Let's Get in Touch">Entrons en contact</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">📧</div>
+                    <div class="info-content">
+                        <h4 data-fr="Email" data-en="Email">Email</h4>
+                        <p>contact@METADEV.com</p>
+                        <p data-fr="Réponse sous 24h garantie" data-en="24h response guaranteed">Réponse sous 24h garantie</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">💬</div>
+                    <div class="info-content">
+                        <h4 data-fr="Chat en direct" data-en="Live Chat">Chat en direct</h4>
+                        <p data-fr="Disponible du lundi au vendredi" data-en="Available Monday to Friday">Disponible du lundi au vendredi</p>
+                        <p>9h00 - 18h00 (CET)</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">⏱️</div>
+                    <div class="info-content">
+                        <h4 data-fr="Réponse rapide" data-en="Quick Response">Réponse rapide</h4>
+                        <p data-fr="Nous répondons généralement en moins d'une heure pendant les heures d'ouverture" data-en="We typically respond within an hour during business hours">Nous répondons généralement en moins d'une heure pendant les heures d'ouverture</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">🌍</div>
+                    <div class="info-content">
+                        <h4 data-fr="Mondial" data-en="Worldwide">Mondial</h4>
+                        <p data-fr="Nous travaillons avec des clients dans le monde entier" data-en="We work with clients worldwide">Nous travaillons avec des clients dans le monde entier</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form id="contactForm" action="https://formspree.io/f/xzdpylwj" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-fr="Prénom *" data-en="First Name *">Prénom *</label>
+                            <input type="text" name="firstName" required placeholder="Jean">
+                        </div>
+                        <div class="form-group">
+                            <label data-fr="Nom *" data-en="Last Name *">Nom *</label>
+                            <input type="text" name="lastName" required placeholder="Dupont">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-fr="Email *" data-en="Email *">Email *</label>
+                            <input type="email" name="email" required placeholder="jean.dupont@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label data-fr="Téléphone *" data-en="Phone *">Téléphone *</label>
+                            <input type="tel" name="phone" required placeholder="+33 6 12 34 56 78">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Nom de l'entreprise *" data-en="Company Name *">Nom de l'entreprise *</label>
+                        <input type="text" name="company" required placeholder="Ma Super Entreprise">
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Type d'entreprise *" data-en="Business Type *">Type d'entreprise *</label>
+                        <select name="businessType" required>
+                            <option value="" data-fr="Sélectionnez une catégorie" data-en="Select a category">Sélectionnez une catégorie</option>
+                            <option value="services" data-fr="Services Professionnels" data-en="Professional Services">Services Professionnels</option>
+                            <option value="beauty" data-fr="Coiffure & Beauté" data-en="Hair & Beauty">Coiffure & Beauté</option>
+                            <option value="building" data-fr="Bâtiment & Maintenance" data-en="Building & Maintenance">Bâtiment & Maintenance</option>
+                            <option value="retail" data-fr="Commerce & Retail" data-en="Retail & Shopping">Commerce & Retail</option>
+                            <option value="restaurant" data-fr="Restaurant & Café" data-en="Restaurant & Café">Restaurant & Café</option>
+                            <option value="health" data-fr="Santé & Bien-être" data-en="Health & Wellness">Santé & Bien-être</option>
+                            <option value="arts" data-fr="Arts & Design" data-en="Arts & Design">Arts & Design</option>
+                            <option value="events" data-fr="Événements" data-en="Events">Événements</option>
+                            <option value="other" data-fr="Autre" data-en="Other">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Avez-vous déjà un site web ?" data-en="Do you already have a website?">Avez-vous déjà un site web ?</label>
+                        <select name="hasWebsite">
+                            <option value="no" data-fr="Non" data-en="No">Non</option>
+                            <option value="yes" data-fr="Oui" data-en="Yes">Oui</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Quels services vous intéressent ? *" data-en="Which services interest you? *">Quels services vous intéressent ? *</label>
+                        <select name="services" required>
+                            <option value="" data-fr="Choisissez un service" data-en="Choose a service">Choisissez un service</option>
+                            <option value="website" data-fr="Site Web Clé en Main" data-en="Done-for-You Website">Site Web Clé en Main</option>
+                            <option value="seo" data-fr="SEO Local" data-en="Local SEO">SEO Local</option>
+                            <option value="concierge" data-fr="Service Concierge" data-en="Concierge Service">Service Concierge</option>
+                            <option value="all" data-fr="Tous les services" data-en="All Services">Tous les services</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Parlez-nous de votre projet *" data-en="Tell us about your project *">Parlez-nous de votre projet *</label>
+                        <textarea name="message" required placeholder="Décrivez votre entreprise, vos objectifs, et ce que vous aimeriez accomplir avec votre site web..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Budget estimé" data-en="Estimated Budget">Budget estimé</label>
+                        <select name="budget">
+                            <option value="" data-fr="Sélectionnez votre budget" data-en="Select your budget">Sélectionnez votre budget</option>
+                            <option value="500-1000" data-fr="500€ - 1000€" data-en="$500 - $1000">500€ - 1000€</option>
+                            <option value="1000-2500" data-fr="1000€ - 2500€" data-en="$1000 - $2500">1000€ - 2500€</option>
+                            <option value="2500-5000" data-fr="2500€ - 5000€" data-en="$2500 - $5000">2500€ - 5000€</option>
+                            <option value="5000+" data-fr="5000€+" data-en="$5000+">5000€+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-fr="Quand souhaitez-vous lancer ?" data-en="When do you want to launch?">Quand souhaitez-vous lancer ?</label>
+                        <select name="timeline">
+                            <option value="asap" data-fr="Dès que possible (48h)" data-en="ASAP (48 hours)">Dès que possible (48h)</option>
+                            <option value="week" data-fr="Cette semaine" data-en="This week">Cette semaine</option>
+                            <option value="month" data-fr="Ce mois-ci" data-en="This month">Ce mois-ci</option>
+                            <option value="flexible" data-fr="Flexible" data-en="Flexible">Flexible</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn" data-fr="Envoyer ma demande" data-en="Send My Request">Envoyer ma demande</button>
+                </form>
+
+                <div id="successMessage" class="success-message">
+                    <h3>✓ <span data-fr="Message envoyé !" data-en="Message sent!">Message envoyé !</span></h3>
+                    <p data-fr="Merci pour votre demande ! Nous vous contacterons dans les 24 heures." data-en="Thank you for your request! We'll contact you within 24 hours.">Merci pour votre demande ! Nous vous contacterons dans les 24 heures.</p>
+                </div>
+
+                <div id="errorMessage" class="error-message">
+                    <h3>✗ <span data-fr="Erreur" data-en="Error">Erreur</span></h3>
+                    <p data-fr="Une erreur s'est produite. Veuillez réessayer ou nous contacter directement à contact@METADEV.com" data-en="An error occurred. Please try again or contact us directly at contact@METADEV.com">Une erreur s'est produite. Veuillez réessayer ou nous contacter directement à contact@METADEV.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="faq-title" data-fr="Questions Fréquentes" data-en="Frequently Asked Questions">Questions Fréquentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-fr="Combien de temps faut-il pour obtenir une réponse ?" data-en="How long does it take to get a response?">Combien de temps faut-il pour obtenir une réponse ?</span>
+                    <span>❓</span>
+                </div>
+                <div class="faq-answer" data-fr="Nous répondons généralement dans l'heure pendant les heures d'ouverture (9h-18h CET, du lundi au vendredi). En dehors de ces heures, vous recevrez une réponse dans les 24 heures." data-en="We typically respond within an hour during business hours (9am-6pm CET, Monday-Friday). Outside these hours, you'll receive a response within 24 hours.">
+                    Nous répondons généralement dans l'heure pendant les heures d'ouverture (9h-18h CET, du lundi au vendredi). En dehors de ces heures, vous recevrez une réponse dans les 24 heures.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-fr="Puis-je planifier un appel de découverte ?" data-en="Can I schedule a discovery call?">Puis-je planifier un appel de découverte ?</span>
+                    <span>📞</span>
+                </div>
+                <div class="faq-answer" data-fr="Absolument ! Après avoir soumis ce formulaire, nous vous enverrons un email avec un lien pour planifier un appel de 30 minutes avec notre équipe." data-en="Absolutely! After submitting this form, we'll send you an email with a link to schedule a 30-minute call with our team.">
+                    Absolument ! Après avoir soumis ce formulaire, nous vous enverrons un email avec un lien pour planifier un appel de 30 minutes avec notre équipe.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-fr="Quelles informations dois-je préparer ?" data-en="What information should I prepare?">Quelles informations dois-je préparer ?</span>
+                    <span>📋</span>
+                </div>
+                <div class="faq-answer" data-fr="Pour accélérer le processus, préparez : une description de votre entreprise, vos objectifs pour le site web, des exemples de sites que vous aimez, et tout contenu existant (logos, photos, textes)." data-en="To speed up the process, prepare: a description of your business, your website goals, examples of sites you like, and any existing content (logos, photos, texts).">
+                    Pour accélérer le processus, préparez : une description de votre entreprise, vos objectifs pour le site web, des exemples de sites que vous aimez, et tout contenu existant (logos, photos, textes).
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-fr="Travaillez-vous avec des clients internationaux ?" data-en="Do you work with international clients?">Travaillez-vous avec des clients internationaux ?</span>
+                    <span>🌍</span>
+                </div>
+                <div class="faq-answer" data-fr="Oui ! Nous travaillons avec des clients dans le monde entier. Nos sites web peuvent être créés en plusieurs langues et nous acceptons les paiements internationaux." data-en="Yes! We work with clients worldwide. Our websites can be created in multiple languages and we accept international payments.">
+                    Oui ! Nous travaillons avec des clients dans le monde entier. Nos sites web peuvent être créés en plusieurs langues et nous acceptons les paiements internationaux.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>METADEV</h3>
+                <p data-fr="Votre partenaire pour une présence digitale exceptionnelle. Sites web professionnels en 48 heures." data-en="Your partner for an exceptional digital presence. Professional websites in 48 hours.">
+                    Votre partenaire pour une présence digitale exceptionnelle. Sites web professionnels en 48 heures.
+                </p>
+            </div>
+            <div class="footer-links">
+                <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+                <ul>
+                    <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                    <li><a href="index.html#services" data-fr="Services" data-en="Services">Services</a></li>
+                    <li><a href="index.html#examples" data-fr="Exemples" data-en="Examples">Exemples</a></li>
+                    <li><a href="about.html" data-fr="À Propos" data-en="About">À Propos</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-fr="Services" data-en="Services">Services</h4>
+                <ul>
+                    <li><a href="index.html#services" data-fr="Sites Web" data-en="Websites">Sites Web</a></li>
+                    <li><a href="index.html#services" data-fr="SEO Local" data-en="Local SEO">SEO Local</a></li>
+                    <li><a href="index.html#services" data-fr="Service Concierge" data-en="Concierge">Service Concierge</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="contact.html" data-fr="Nous Contacter" data-en="Contact Us">Nous Contacter</a></li>
+                    <li><a href="mailto:contact@METADEV.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 METADEV Pro. <span data-fr="Tous droits réservés." data-en="All rights reserved.">Tous droits réservés.</span></p>
+        </div>
+    </footer>
+    <script>
+// Language toggle functionality
+let currentLang = 'fr';
+
+function toggleMobileMenu() {
+    const mobileNav = document.getElementById('mobileNav');
+    mobileNav.classList.toggle('active');
+    
+    // This part prevents the background page from scrolling while the menu is open
+    if (mobileNav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+function toggleLanguage() {
+    currentLang = currentLang === 'fr' ? 'en' : 'fr';
+    document.getElementById('lang-text').textContent = currentLang === 'fr' ? 'EN' : 'FR';
+    
+    document.querySelectorAll('[data-fr]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${currentLang}`);
+    });
+}
+
+// Formspree integration
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const successMessage = document.getElementById('successMessage');
+const errorMessage = document.getElementById('errorMessage');
+
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Disable submit button
+    submitBtn.disabled = true;
+    submitBtn.textContent = currentLang === 'fr' ? 'Envoi en cours...' : 'Sending...';
+    
+    // Hide any previous messages
+    successMessage.classList.remove('show');
+    errorMessage.classList.remove('show');
+    
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            // Show success message
+            successMessage.classList.add('show');
+            form.reset();
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+            throw new Error('Form submission failed');
+        }
+    } catch (error) {
+        // Show error message
+        errorMessage.classList.add('show');
+        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.textContent = currentLang === 'fr' ? 'Envoyer ma demande' : 'Send My Request';
+    }
+});
+</script>
+</body>
+</html>

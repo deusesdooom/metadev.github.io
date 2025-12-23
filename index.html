@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METADEV Pro - Sites Web en 48h</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #8b5cf6;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-align: center;
+            font-weight: 600;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .top-banner.hidden {
+            transform: translateY(-100%);
+        }
+
+        .banner-text {
+            letter-spacing: 0.1em;
+        }
+
+        .banner-cta {
+            background: #ff4500;
+            padding: 0.4rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            animation: pulse-cta 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-cta {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 48px;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav.banner-hidden {
+            top: 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-switch {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--light);
+        }
+
+        .lang-switch:hover {
+            background: var(--primary);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            display: block;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .mobile-close-btn {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: block;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--primary);
+            padding-left: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 12rem 2rem 4rem;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(20deg); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: rgba(248, 250, 252, 0.8);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 6rem;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: rgba(248, 250, 252, 0.7);
+            margin-top: 0.5rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.3rem;
+            color: rgba(248, 250, 252, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: rgba(248, 250, 252, 0.7);
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Examples Section */
+        .examples {
+            padding: 8rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .examples-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .example-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/10;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .example-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(236, 72, 153, 0.8));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .example-card:hover::before {
+            opacity: 1;
+        }
+
+        .example-card:hover {
+            transform: scale(1.03);
+        }
+
+        .example-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .example-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 2;
+        }
+
+        .example-card:hover .example-overlay {
+            transform: translateY(0);
+        }
+
+        .example-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .example-link:visited, 
+        .example-link:hover, 
+        .example-link:active {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 5rem;
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .comparison-card.positive {
+            border: 2px solid #22c55e;
+        }
+
+        .comparison-card.negative {
+            border: 2px solid #ef4444;
+        }
+
+        .comparison-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .comparison-features {
+            margin-top: 2rem;
+            list-style: none;
+        }
+
+        .comparison-features li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-features li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #22c55e;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .cross-icon {
+            color: #ef4444;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Money Back Guarantee Badge */
+        .guarantee-badge {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+            animation: pulse-badge 2s ease-in-out infinite;
+            z-index: 999;
+            border: 4px solid white;
+        }
+
+        .guarantee-badge .badge-top {
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        .guarantee-badge .badge-middle {
+            font-size: 2rem;
+            line-height: 1;
+            margin: 0.2rem 0;
+        }
+
+        .guarantee-badge .badge-bottom {
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 50px rgba(99, 102, 241, 0.6);
+            }
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(99, 102, 241, 0.15);
+            padding: 0.2rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+        }
+
+        /* Trustpilot Section */
+        .trustpilot-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .star {
+            color: #00b67a;
+            font-size: 1.5rem;
+        }
+
+        /* Browser Mockup */
+        .browser-mockup {
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            margin-top: 4rem;
+        }
+
+        .browser-header {
+            background: #0f172a;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #475569;
+        }
+
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #eab308; }
+        .dot.green { background: #22c55e; }
+
+        .browser-url {
+            flex: 1;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .browser-content {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+
+        .browser-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: rgba(248, 250, 252, 0.6);
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(248, 250, 252, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(248, 250, 252, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .examples-grid { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr 1fr; }
+            .comparison-section { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            /* Top Banner Mobile */
+            .top-banner {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .banner-cta {
+                padding: 0.3rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            /* Navigation Mobile */
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            /* Hero Mobile */
+            .hero {
+                padding: 8rem 1.5rem 3rem;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-badge {
+                font-size: 0.85rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .highlight-box {
+                padding: 0.1rem 0.5rem;
+                font-size: 0.9em;
+            }
+
+            /* CTA Buttons Mobile */
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            /* Trustpilot Mobile */
+            .trustpilot-section {
+                flex-direction: column;
+                margin-top: 2rem;
+                gap: 0.5rem;
+            }
+
+            .star {
+                font-size: 1.2rem;
+            }
+
+            /* Browser Mockup Mobile */
+            .browser-mockup {
+                margin-top: 2rem;
+            }
+
+            .browser-header {
+                padding: 0.5rem 0.8rem;
+            }
+
+            .browser-url {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.5rem;
+            }
+
+            .dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            /* Stats Mobile */
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin-top: 3rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 1rem;
+            }
+
+            /* Services Mobile */
+            .services {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-description {
+                font-size: 1.1rem;
+            }
+
+            .service-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+
+            /* Comparison Section Mobile */
+            .comparison-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .comparison-card h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .comparison-icon {
+                top: 1rem;
+                right: 1rem;
+                font-size: 1.5rem;
+            }
+
+            /* Examples Mobile */
+            .examples {
+                padding: 4rem 1.5rem;
+            }
+
+            /* Guarantee Badge Mobile */
+            .guarantee-badge {
+                width: 80px;
+                height: 80px;
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .guarantee-badge .badge-top,
+            .guarantee-badge .badge-bottom {
+                font-size: 0.5rem;
+            }
+
+            .guarantee-badge .badge-middle {
+                font-size: 1.5rem;
+            }
+
+            /* Footer Mobile */
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            footer {
+                padding: 2rem 1rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                font-size: 0.95rem;
+                padding: 0.9rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        <span class="banner-text" data-fr="OFFRE LIMITÉE - PROMO HIVER" data-en="LIMITED OFFER - WINTER SALE">OFFRE LIMITÉE - PROMO HIVER</span>
+        <span class="banner-cta" data-fr="Économisez 30%" data-en="Save 30%">Économisez 30%</span>
+    </div>
+
+    <!-- Money Back Guarantee Badge -->
+    <div class="guarantee-badge">
+        <div class="badge-top">GARANTIE</div>
+        <div class="badge-middle">💰</div>
+        <div class="badge-bottom">SATISFAIT</div>
+    </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">METADEV</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                <li><a href="index.html#services" data-fr="Services" data-en="Services">Services</a></li>
+                <li><a href="index.html#examples" data-fr="Exemples" data-en="Examples">Exemples</a></li>
+                <li><a href="about.html" data-fr="À Propos" data-en="About Us">À Propos</a></li>
+                <li><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
+                <li><button class="lang-switch" onclick="toggleLanguage()"><span id="lang-text">EN</span></button></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo">METADEV</a>
+            <button class="mobile-close-btn" onclick="toggleMobileMenu()">✕</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" data-fr="Accueil" data-en="Home" onclick="toggleMobileMenu()">Accueil</a></li>
+            <li><a href="index.html#services" data-fr="Services" data-en="Services" onclick="toggleMobileMenu()">Services</a></li>
+            <li><a href="index.html#examples" data-fr="Exemples" data-en="Examples" onclick="toggleMobileMenu()">Exemples</a></li>
+            <li><a href="about.html" data-fr="À Propos" data-en="About Us" onclick="toggleMobileMenu()">À Propos</a></li>
+            <li><a href="contact.html" data-fr="Contact" data-en="Contact" onclick="toggleMobileMenu()">Contact</a></li>
+            <li><button class="lang-switch" onclick="toggleLanguage()" style="width: 100%; margin-top: 1rem;"><span id="lang-text-mobile">EN</span></button></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <div class="hero-badge" data-fr="🚀 Sites Web Professionnels en 48h" data-en="🚀 Professional Websites in 48h">🚀 Sites Web Professionnels en 48h</div>
+            <h1 style="line-height: 1.3;">
+                <span data-fr="Nous construirons votre" data-en="We'll build your">Nous construirons votre</span>
+                <br>
+                <span class="gradient-text" style="display: inline-block; margin: 0.5rem 0;" data-fr="site web professionnel" data-en="professional website">site web professionnel</span>
+                <br>
+                <span data-fr="en seulement" data-en="in just">en seulement</span>
+                <span class="highlight-box" style="display: inline-block; margin: 0.5rem;" data-fr="48 heures" data-en="48 hours">48 heures</span>
+            </h1>
+            <p data-fr="Ensuite, nous vous aiderons à développer votre entreprise. Service d'agence à une fraction du prix." data-en="Then we'll help grow your business. Agency service at a fraction of the price.">
+                Ensuite, nous vous aiderons à développer votre entreprise. Service d'agence à une fraction du prix.
+            </p>
+            
+            <!-- Trustpilot Section -->
+            <div class="trustpilot-section">
+                <div class="rating-badge">
+                    <span data-fr="NOTÉ 4.8 EXCELLENT" data-en="RATED 4.8 EXCELLENT">NOTÉ 4.8 EXCELLENT</span>
+                </div>
+                <div class="stars">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div>
+                    <strong data-fr="Trustpilot" data-en="Trustpilot">Trustpilot</strong>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; color: rgba(248, 250, 252, 0.6);" data-fr="REJOIGNEZ NOTRE COMMUNAUTÉ DE 700 000+ PROPRIÉTAIRES D'ENTREPRISES" data-en="JOIN OUR COMMUNITY OF 700,000+ BUSINESS OWNERS">
+                REJOIGNEZ NOTRE COMMUNAUTÉ DE 700 000+ PROPRIÉTAIRES D'ENTREPRISES
+            </p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary" data-fr="Commencer" data-en="Get Started">Commencer</a>
+                <a href="#examples" class="btn btn-secondary" data-fr="Nos sites sont-ils de qualité ?" data-en="Are our websites any good?">Nos sites sont-ils de qualité ?</a>
+            </div>
+
+            <!-- Browser Mockup -->
+            <div class="browser-mockup">
+                <div class="browser-header">
+                    <div class="browser-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="browser-url">🔒 celestialdelicacies.com</div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="font-size: 1.2rem;">💻</span>
+                        <span style="font-size: 1.2rem;">📱</span>
+                        <span style="font-size: 1.2rem;">⚡</span>
+                        <span style="background: rgba(255,255,255,0.1); padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.8rem;">1280</span>
+                    </div>
+                </div>
+                <div class="browser-content">
+                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1200" alt="Restaurant Website Preview">
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">48h</div>
+                    <div class="stat-label" data-fr="Livraison garantie" data-en="Guaranteed Delivery">Livraison garantie</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label" data-fr="Clients satisfaits" data-en="Happy Clients">Clients satisfaits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label" data-fr="Taux de satisfaction" data-en="Satisfaction Rate">Taux de satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <div class="section-badge" data-fr="NOS SERVICES" data-en="OUR SERVICES">NOS SERVICES</div>
+            <h2 class="section-title" data-fr="Dites adieu aux sites DIY défaillants et aux agences coûteuses" data-en="Say goodbye to faulty DIY websites and expensive agencies">Dites adieu aux sites DIY défaillants et aux agences coûteuses</h2>
+            <p class="section-description" data-fr="Oui, vous pouvez vous offrir un site web construit par des professionnels" data-en="Yes, you can afford a website built by pros">
+                Oui, vous pouvez vous offrir un site web <span class="highlight-box">construit par des pros</span>
+            </p>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="comparison-section">
+            <div class="comparison-card positive">
+                <div class="comparison-icon">✅</div>
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;" data-fr="Sites avec METADEV" data-en="Websites with METADEV">Sites avec METADEV</h3>
+                <ul class="comparison-features">
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Site web construit pour vous" data-en="Built-for-you website">Site web construit pour vous</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Prêt en 48 heures" data-en="Ready in 48 hours">Prêt en 48 heures</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Design et contenu inclus" data-en="Design and content included">Design et contenu inclus</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="0 frais de transaction" data-en="0 transaction fees">0 frais de transaction</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Support VIP" data-en="VIP support">Support VIP</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Domaine & email inclus" data-en="Domain & email included">Domaine & email inclus</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Éditeur facile à utiliser" data-en="Easy-to-use editor">Éditeur facile à utiliser</span>
+                    </li>
+                    <li>
+                        <span class="check-icon">✓</span>
+                        <span data-fr="Garantie remboursement 30 jours" data-en="30-day refund guarantee">Garantie remboursement 30 jours</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="comparison-card negative">
+                <div class="comparison-icon">❌</div>
+                <h3 style="font-size: 2rem; margin-bottom: 1rem;" data-fr="Sites sans METADEV" data-en="Websites without METADEV">Sites sans METADEV</h3>
+                <ul class="comparison-features">
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Confusion DIY" data-en="DIY confusion">Confusion DIY</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Des semaines d'efforts" data-en="Weeks of effort">Des semaines d'efforts</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Perte de temps" data-en="Time wasting">Perte de temps</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Risque d'échec" data-en="Risk of failure">Risque d'échec</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Frais cachés" data-en="Hidden fees">Frais cachés</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Aucun service client" data-en="No customer service">Aucun service client</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Gros frais d'agence" data-en="Big agency fees">Gros frais d'agence</span>
+                    </li>
+                    <li>
+                        <span class="cross-icon">✗</span>
+                        <span data-fr="Abandon du projet" data-en="Giving up">Abandon du projet</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="contact.html" class="btn btn-primary" data-fr="Commencer maintenant" data-en="Get Started">Commencer maintenant</a>
+        </div>
+    </section>
+
+    <!-- Features Section (replacing old services) -->
+    <section style="padding: 8rem 2rem; max-width: 1400px; margin: 0 auto;">
+        <div class="section-header">
+            <div class="section-badge" data-fr="POURQUOI NOUS CHOISIR" data-en="WHY CHOOSE US">POURQUOI NOUS CHOISIR</div>
+            <h2 class="section-title" data-fr="Sites conçus pour chaque besoin" data-en="Websites designed for every purpose">Sites conçus pour chaque besoin</h2>
+            <p class="section-description" data-fr="Vendre n'importe quoi et accepter des réservations" data-en="To sell anything & take bookings">
+                Vendre n'importe quoi et accepter des réservations
+            </p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" id="service-1">
+                <div class="service-icon">🎨</div>
+                <h3 data-fr="Sites Web Clé en Main" data-en="Done-for-You Websites">Sites Web Clé en Main</h3>
+                <p data-fr="Nous créons votre site web professionnel de A à Z en 48 heures. Design moderne, responsive, et optimisé pour la conversion." data-en="We build your professional website from A to Z in 48 hours. Modern design, responsive, and optimized for conversion.">
+                    Nous créons votre site web professionnel de A à Z en 48 heures. Design moderne, responsive, et optimisé pour la conversion.
+                </p>
+            </div>
+            <div class="service-card" id="service-2">
+                <div class="service-icon">📍</div>
+                <h3 data-fr="SEO Local" data-en="Local SEO">SEO Local</h3>
+                <p data-fr="Dominez les résultats de recherche locaux. Nous optimisons votre visibilité pour attirer plus de clients dans votre région." data-en="Dominate local search results. We optimize your visibility to attract more clients in your area.">
+                    Dominez les résultats de recherche locaux. Nous optimisons votre visibilité pour attirer plus de clients dans votre région.
+                </p>
+            </div>
+            <div class="service-card" id="service-3">
+                <div class="service-icon">⭐</div>
+                <h3 data-fr="Service Concierge" data-en="Concierge Service">Service Concierge</h3>
+                <p data-fr="Un accompagnement personnalisé pour tous vos besoins digitaux. Support prioritaire, mises à jour illimitées, et conseils stratégiques." data-en="Personalized support for all your digital needs. Priority support, unlimited updates, and strategic advice.">
+                    Un accompagnement personnalisé pour tous vos besoins digitaux. Support prioritaire, mises à jour illimitées, et conseils stratégiques.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section style="padding: 6rem 2rem; background: rgba(255, 255, 255, 0.02);">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <div class="section-badge" data-fr="LE SAVIEZ-VOUS ?" data-en="DID YOU KNOW?">LE SAVIEZ-VOUS ?</div>
+            <h2 style="font-size: 3.5rem; font-weight: 900; margin: 2rem 0;">
+                <span style="color: var(--primary);">2 propriétaires d'entreprise sur 3</span>
+                <br>
+                <span data-fr="n'ont pas de site web ou n'aiment pas celui qu'ils ont" data-en="don't have a website or don't like the one they have">n'ont pas de site web ou n'aiment pas celui qu'ils ont</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- DIY vs Agency Section -->
+    <section style="padding: 8rem 2rem; max-width: 1400px; margin: 0 auto;">
+        <div class="section-header">
+            <h2 class="section-title" data-fr="Le problème" data-en="The Problem">Le problème</h2>
+        </div>
+        <div class="comparison-section">
+            <div class="service-card" style="text-align: center;">
+                <div class="service-icon">😤</div>
+                <h3 style="font-size: 2rem; margin-bottom: 1.5rem;" data-fr="Créateurs de sites DIY" data-en="Do-It-Yourself Website Builders">Créateurs de sites DIY</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;" data-fr="vous donnent une boîte à outils, pas un site web fini" data-en="give you a toolbox, not a finished website">vous donnent une boîte à outils, pas un site web fini</p>
+                <p style="color: var(--primary); font-weight: 600; font-size: 1.2rem;" data-fr="La plupart de ces sites ne sont jamais terminés." data-en="Most of these sites never get finished.">La plupart de ces sites ne sont jamais terminés.</p>
+            </div>
+            <div class="service-card" style="text-align: center;">
+                <div class="service-icon">😡</div>
+                <h3 style="font-size: 2rem; margin-bottom: 1.5rem;" data-fr="Agences Web" data-en="Website Agencies">Agences Web</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;" data-fr="sont coûteuses et vous devez encore apprendre à maintenir votre site" data-en="are expensive and you still need to learn how to maintain your website">sont coûteuses et vous devez encore apprendre à maintenir votre site</p>
+                <p style="color: var(--secondary); font-weight: 600; font-size: 1.2rem;" data-fr="La plupart de ces sites ne sont pas mis à jour." data-en="Most of these sites are not updated.">La plupart de ces sites ne sont pas mis à jour.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Examples Section -->
+    <section class="examples" id="examples">
+        <div class="examples-container">
+            <div class="section-header">
+                <div class="section-badge" data-fr="PORTFOLIO" data-en="PORTFOLIO">PORTFOLIO</div>
+                <h2 class="section-title" data-fr="Nos réalisations" data-en="Our Work">Nos réalisations</h2>
+                <p class="section-description" data-fr="Découvrez quelques-uns des sites web exceptionnels que nous avons créés" data-en="Discover some of the exceptional websites we've created">
+                    Découvrez quelques-uns des sites web exceptionnels que nous avons créés
+                </p>
+            </div>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <a href="https://phantomrentcar.com/" target="_blank" class="example-link">
+                    <img src="example1.png" alt="Example 1" class="example-image">
+                    <div class="example-overlay">
+                        <h3 data-fr="Phantom Rent A Car" data-en="Phantom Rent A Car">Phantom Rent A Car</h3>
+                        <p data-fr="Plateforme de location de luxe avec système de réservation complet, gestion de flotte en temps réel et paiement sécurisé." data-en="Luxury rental platform featuring a complex booking engine, real-time fleet management, and secure payment integration.">Plateforme de location de luxe avec système de réservation complet, gestion de flotte en temps réel et paiement sécurisé.</p>
+                    </div>
+                    </a>
+                </div>
+                <div class="example-card">
+                    <a href="https://dxb.celavi.com/" target="_blank" class="example-link">
+                    <img src="example2.png" alt="Example 2" class="example-image">
+                    <div class="example-overlay">
+                        <h3 data-fr="CÉ LA VI Dubai" data-en="CÉ LA VI Dubai">CÉ LA VI Dubai</h3>
+                        <p data-fr="Site vitrine pour ce restaurant iconique du Guide MICHELIN. Inclut un système de réservation SevenRooms, menus interactifs et galeries événementielles." data-en="Premium digital presence for this Michelin-starred rooftop icon. Features SevenRooms booking integration, interactive menus, and event management.">Site vitrine pour ce restaurant iconique du Guide MICHELIN. Inclut un système de réservation SevenRooms, menus interactifs et galeries événementielles.</p>
+                    </div>
+                    </a>
+                </div>
+                </div>
+            </div>
+    </section>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>METADEV</h3>
+                <p data-fr="Votre partenaire pour une présence digitale exceptionnelle. Sites web professionnels en 48 heures." data-en="Your partner for an exceptional digital presence. Professional websites in 48 hours.">
+                    Votre partenaire pour une présence digitale exceptionnelle. Sites web professionnels en 48 heures.
+                </p>
+            </div>
+            <div class="footer-links">
+                <h4 data-fr="Navigation" data-en="Navigation">Navigation</h4>
+                <ul>
+                    <li><a href="index.html" data-fr="Accueil" data-en="Home">Accueil</a></li>
+                    <li><a href="index.html#services" data-fr="Services" data-en="Services">Services</a></li>
+                    <li><a href="index.html#examples" data-fr="Exemples" data-en="Examples">Exemples</a></li>
+                    <li><a href="about.html" data-fr="À Propos" data-en="About">À Propos</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-fr="Services" data-en="Services">Services</h4>
+                <ul>
+                    <li><a href="index.html#services" data-fr="Sites Web" data-en="Websites">Sites Web</a></li>
+                    <li><a href="index.html#services" data-fr="SEO Local" data-en="Local SEO">SEO Local</a></li>
+                    <li><a href="index.html#services" data-fr="Service Concierge" data-en="Concierge">Service Concierge</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="contact.html" data-fr="Nous Contacter" data-en="Contact Us">Nous Contacter</a></li>
+                    <li><a href="mailto:contact@METADEV.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 METADEV Pro. <span data-fr="Tous droits réservés." data-en="All rights reserved.">Tous droits réservés.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'fr';
+
+        function toggleMobileMenu() {
+    const mobileNav = document.getElementById('mobileNav');
+    mobileNav.classList.toggle('active');
+    
+    // This part prevents the background page from scrolling while the menu is open
+    if (mobileNav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+        function toggleLanguage() {
+            const currentLang = document.documentElement.lang;
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.documentElement.lang = newLang;
+            document.getElementById('lang-text').textContent = newLang === 'fr' ? 'EN' : 'FR';
+
+            document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+                const text = newLang === 'fr' ? el.getAttribute('data-fr') : el.getAttribute('data-en');
+                el.textContent = text;
+            });
+        }
+    </script>
+    </body>
+    </html>
